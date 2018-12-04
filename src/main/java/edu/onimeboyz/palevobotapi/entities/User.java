@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -17,6 +19,17 @@ public class User extends Base {
     private double rating;
 
     public static ArrayList<User> users = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "user_palevo",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "palevo_id") })
+    private Set<Palevo> palevos = new HashSet<>();
+
 
     public User(){
 

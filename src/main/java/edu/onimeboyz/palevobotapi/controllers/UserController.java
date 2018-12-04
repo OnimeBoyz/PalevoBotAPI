@@ -51,7 +51,9 @@ public class UserController {
     public ResponseEntity<?> deleteNote(@PathVariable(value = "username") String username) {
 
         User user = getUserByName(username);
+
         userRepository.delete(user);
+
         return ResponseEntity.ok().build();
     }
 
