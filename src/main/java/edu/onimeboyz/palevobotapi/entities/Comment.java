@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "comments")
-public class Comment {
+public class Comment extends Base{
 
     private String content;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -15,11 +15,21 @@ public class Comment {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Palevo palevo;
 
+
+
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Palevo getPalevo() {
+        return palevo;
+    }
+
+    public void setPalevo(Palevo palevo) {
+        this.palevo = palevo;
     }
 }
