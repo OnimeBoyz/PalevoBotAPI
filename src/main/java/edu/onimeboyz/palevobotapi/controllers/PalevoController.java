@@ -1,6 +1,7 @@
 package edu.onimeboyz.palevobotapi.controllers;
 
 
+import edu.onimeboyz.palevobotapi.entities.Comment;
 import edu.onimeboyz.palevobotapi.entities.Palevo;
 import edu.onimeboyz.palevobotapi.entities.User;
 import edu.onimeboyz.palevobotapi.repositories.PalevoRepository;
@@ -25,5 +26,10 @@ public class PalevoController {
         return palevoRepository.save(palevo);
     }
 
+    @GetMapping("/{palevo_id}")
+    public Palevo getPalevoById(@PathVariable(value = "palevo_id") Integer palevoId) {
+        return palevoRepository.findById(palevoId)
+                .orElseThrow(() -> new IllegalArgumentException("Wrong palevo_id"));
+    }
 
 }
