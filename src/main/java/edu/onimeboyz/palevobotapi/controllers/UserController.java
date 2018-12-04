@@ -18,9 +18,7 @@ public class UserController {
 
     @GetMapping("/users")
     public List<User> getAllUsers() {
-        System.out.println(userRepository.findAll().size());
         return userRepository.findAll();
-        //return Arrays.asList(new User("First"), new User("Second"));
     }
 
     @PostMapping("/users")
@@ -33,13 +31,13 @@ public class UserController {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Wrong id"));
     }
+
     @GetMapping("/users/{username}")
     public User getUserById(@PathVariable(value = "username") String username) {
-        for (User user: userRepository.findAll()) {
-            if(user.getUsername().trim().equals(username.trim()))
-                return user;
-        }
-        throw new IllegalArgumentException("Wrong username");
+        return userRepository.findAll().stream()
+                .filter(user -> user.getUsername().trim().equals(username.trim()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Wrong username"));
     }
 
     @PutMapping("/users/{id}")
@@ -52,8 +50,7 @@ public class UserController {
         user.setUsername(userDetails.getUsername());
         user.setRating(userDetails.getRating());
 
-        User updatedUser = userRepository.save(user);
-        return updatedUser;
+        return userRepository.save(user);
     }
 
 
