@@ -44,4 +44,11 @@ public class PalevoController {
         return palevoRepository.save(palevo);
     }
 
+    @DeleteMapping("/palevo_id")
+    public ResponseEntity<?> deleteNote(@PathVariable(value = "palevo_id") Integer palevoId) {
+
+        Palevo palevo = getPalevoById(palevoId);
+        palevoRepository.delete(palevo);
+        return ResponseEntity.ok().build();
+    }
 }
