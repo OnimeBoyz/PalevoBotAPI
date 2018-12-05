@@ -45,8 +45,8 @@ public class CommentController  {
                            @Valid @RequestBody Comment commentDetails) {
 
         Comment comment = getCommentById(commentId);
-        comment.setContent(comment.getContent());
-        comment.setPalevo(comment.getPalevo());
+        comment.setContent(commentDetails.getContent());
+        comment.setPalevo(commentDetails.getPalevo());
         return commentRepository.save(comment);
     }
 

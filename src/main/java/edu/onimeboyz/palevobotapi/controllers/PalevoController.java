@@ -32,4 +32,16 @@ public class PalevoController {
                 .orElseThrow(() -> new IllegalArgumentException("Wrong palevo_id"));
     }
 
+    @PutMapping("/{palevo_id}")
+    public Palevo updateNote(@PathVariable(value = "palevo_id") Integer palevoId,
+                              @Valid @RequestBody Palevo palevoDetails) {
+
+        Palevo palevo = getPalevoById(palevoId);
+        palevo.setTitle(palevoDetails.getTitle());
+        palevo.setDescription(palevoDetails.getDescription());
+        palevo.setRating(palevoDetails.getRating());
+        palevo.setDocument(palevoDetails.getDocument());
+        return palevoRepository.save(palevo);
+    }
+
 }
